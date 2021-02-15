@@ -69,6 +69,33 @@ class Solution {
     }
 }
 ```
+## 풀이 훑어 보고 새로 만들어본 식.
+``` java
+    public Node copyRandomList(Node head) {
+        HashMap<Node, Node> hashMap = new HashMap<>();
+
+        Node headTemp = head;
+        Node cloneTemp = null;
+        if (head == null) return null;
+
+        while (head != null) {
+            cloneTemp = new Node(head.val);
+            hashMap.put(head, cloneTemp);
+
+            head = head.next;
+        }
+
+        for (Node node : hashMap.keySet()) {
+            hashMap.get(node).random = hashMap.getOrDefault(node.random, null);
+            hashMap.get(node).next = hashMap.getOrDefault(node.next, null);
+        }
+
+        return hashMap.get(headTemp);
+    }
+```
+### key는 중복되지 않고 key와 value를 원본과 복사본으로 두면서 짠 코드 같은 느낌. <br>
+### hashMap.get(오리지널)해서 가져온 값이 복사본에 노드가 된다.
+### hashMap.getOrDefault(오리지널에 랜덤, null)의 값이 복사본에 랜덤 값이 됨.
 
 ## 풀고 나서 느낀 점
  - 원래 HashMap을 사용해볼 생각을 하긴 했는데, 발상의 전환이 부족했다.
